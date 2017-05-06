@@ -18,6 +18,7 @@ package android.example.com.squawker;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.example.com.squawker.fcm.MyFirebaseInstanceIdService;
 import android.example.com.squawker.following.FollowingPreferenceActivity;
 import android.example.com.squawker.provider.SquawkContract;
 import android.example.com.squawker.provider.SquawkProvider;
@@ -63,6 +64,9 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //startService(new Intent(this, MyFirebaseInstanceIdService.class));
+        //new MyFirebaseInstanceIdService().onTokenRefresh();
+
         mRecyclerView = (RecyclerView) findViewById(R.id.squawks_recycler_view);
 
         // Use this setting to improve performance if you know that changes
@@ -86,6 +90,11 @@ public class MainActivity extends AppCompatActivity implements
         // Start the loader
         getSupportLoaderManager().initLoader(LOADER_ID_MESSAGES, null, this);
 
+        Bundle extras = getIntent().getExtras();
+
+        if(extras!=null&& extras.containsKey("test")){
+            Log.d(LOG_TAG,extras.getString("test"));
+        }
     }
 
     @Override
