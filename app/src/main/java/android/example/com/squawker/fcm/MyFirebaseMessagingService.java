@@ -1,5 +1,7 @@
 package android.example.com.squawker.fcm;
 
+import android.content.ContentValues;
+import android.example.com.squawker.provider.SquawkProvider;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -28,5 +30,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
+
+        ContentValues newMessage = new ContentValues();
+        getContentResolver().insert(SquawkProvider.SquawkMessages.CONTENT_URI,newMessage);
     }
 }
